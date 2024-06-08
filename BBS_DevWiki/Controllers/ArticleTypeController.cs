@@ -19,10 +19,7 @@ namespace BBS_DevWiki.Controllers
         [HttpGet]
         public async Task<IEnumerable<ArticleTypeDTO>> GetArticleTypes()
         {
-            var articleTypes = await articleTypeService.GetArticleTypesAsync();
-            var articleTypesDTO = from articleType in articleTypes select articleType.ToDTO();
-
-            return articleTypesDTO;
+            return await articleTypeService.GetArticleTypesAsync();
         }
     }
 }

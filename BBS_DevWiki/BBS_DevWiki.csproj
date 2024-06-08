@@ -130,8 +130,11 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\UnityResolver.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\ArticleTypeController.cs" />
+    <Compile Include="DTOs\ArticleDTO.cs" />
     <Compile Include="DTOs\ArticleTypeDTO.cs" />
+    <Compile Include="DTOs\CreateArticleDTO.cs" />
     <Compile Include="DTOs\Extension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,9 +144,13 @@
     <Compile Include="Models\ArticleType.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ArticleRepository.cs" />
     <Compile Include="Repositories\ArticleTypeRepository.cs" />
+    <Compile Include="Repositories\IArticleRepository.cs" />
     <Compile Include="Repositories\IArticleTypeRepository.cs" />
+    <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\ArticleTypeService.cs" />
+    <Compile Include="Services\IArticleService.cs" />
     <Compile Include="Services\IArticleTypeService.cs" />
   </ItemGroup>
   <ItemGroup>

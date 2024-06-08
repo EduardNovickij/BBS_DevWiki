@@ -1,7 +1,9 @@
 ﻿using BBS_DevWiki.Models;
 using BBS_DevWiki.Repositories;
+using BBS_DevWiki.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace BBS_DevWiki.Services
 {
@@ -18,9 +20,12 @@ namespace BBS_DevWiki.Services
             return await repository.GetArticleTypeAsync(id);
         }
 
-        public async Task<IEnumerable<ArticleType>> GetArticleTypesAsync()
+        public async Task<IEnumerable<ArticleTypeDTO>> GetArticleTypesAsync()
         {
-            return await repository.GetArticleTypesAsync();
+            var articleTypes = await repository.GetArticleTypesAsync();
+            var articleTypesDTO = from articleType in articleTypes select articleType.ToDTO();
+
+            return articleTypesDTO;
         }
     }
 }

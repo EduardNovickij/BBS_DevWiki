@@ -18,8 +18,10 @@ namespace BBS_DevWiki
             container.RegisterType<DBContext>(new HierarchicalLifetimeManager());
 
             container.RegisterType<IArticleTypeRepository, ArticleTypeRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IArticleRepository, ArticleRepository>(new HierarchicalLifetimeManager());
 
             container.RegisterType<IArticleTypeService, ArticleTypeService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IArticleService, ArticleService>(new HierarchicalLifetimeManager());
 
             config.DependencyResolver = new UnityResolver(container);
 
