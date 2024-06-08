@@ -2,6 +2,7 @@
 using BBS_DevWiki.Services;
 using BBS_DevWiki.Models;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Unity;
 using Unity.Lifetime;
 using BBS_DevWiki.App_Start;
@@ -24,6 +25,9 @@ namespace BBS_DevWiki
             container.RegisterType<IArticleService, ArticleService>(new HierarchicalLifetimeManager());
 
             config.DependencyResolver = new UnityResolver(container);
+
+            // Enable CORS globally
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
