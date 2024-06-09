@@ -5,7 +5,7 @@
     //Variable for switching active tab between ArticleList and ArticleForm.
     let activeTab = 'list';
 
-    //Switch tab to list after new article is created.
+    //Switch to article list tab after new article has been created.
     const handleFormSubmit = () => {
         activeTab = 'list';
     };
@@ -34,7 +34,7 @@
             <ArticleList />
         </div>
         <div class="tab-panel" class:visible={activeTab === 'form'}>
-            <ArticleForm on:submit={handleFormSubmit} />
+            <ArticleForm activeTab={activeTab} on:submit={handleFormSubmit} />
         </div>
     </div>
 </main>

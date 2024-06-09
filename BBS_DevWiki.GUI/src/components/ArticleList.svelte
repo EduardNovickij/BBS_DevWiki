@@ -51,7 +51,7 @@
 </script>
 
 <div class="filters">
-    <input type="text" placeholder="Search by title or description" bind:value={searchQuery} class="search-input" />
+    <input type="text" placeholder="Search by title or description" bind:value={searchQuery} class="search-input" maxlength="50" />
     <select bind:value={selectedType} class="filter-select">
         <option value="">All Types</option>
         {#each $articleTypes as type}

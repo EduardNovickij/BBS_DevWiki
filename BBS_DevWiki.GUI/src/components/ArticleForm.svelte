@@ -1,31 +1,72 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     import { articleTypes, addArticle } from '../stores/articles.js';
+
+    //Article Form values for creating new article.
     let title = '';
     let description = '';
     let articleDate = '';
     let articleTypeID = '';
 
-    //Event dispatcher to indicate that a new article has been created.
+    //Error message in case input values are not valid.
+    let errorMessage = '';
+
+    //Active tab variable from App.svelte.
+    export let activeTab;
+
+    //Watch for changes to the activeTab prop.
+    $: {
+        handleTabChange(activeTab);
+    }
+
+    //Reset values when switching tabs.
+    const handleTabChange = (tab) => {
+        if (tab != 'form') {
+            errorMessage = '';
+            title = '';
+            description = '';
+            articleDate = '';
+            articleTypeID = '';
+        }
+    };
+
+    //Dispatcher to indicate that new article has been created.
     const dispatch = createEventDispatcher();
 
-    //Create new article and reset input parameters.
+    //Create new article and switch to article list tab.
     const handleSubmit = async () => {
-        await addArticle({ title, description, articleTypeID: parseInt(articleTypeID), articleDate });
-        title = '';
-        description = '';
-        articleDate = '';
-        articleTypeID = '';
+        if (!title.trim() || !description.trim() || !articleDate || !articleTypeID) {
+            errorMessage = 'All fields are required.';
+            return;
+        }
 
-        //Dispatch 'submit' event so event listener in App.svelte switches to ArticleList tab.
+        await addArticle({ title, description, articleTypeID: parseInt(articleTypeID), articleDate });
+
         dispatch('submit');
     };
+
+    //Get current date for date field constraint.
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        // Add leading zero if month or day is a single digit
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+
+        return `${year}-${month}-${day}`;
+    };
+
+    let maxDate = getTodayDate();
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" id="title" placeholder="Title" bind:value={title} required />
+        <input type="text" id="title" placeholder="Title" bind:value={title} required maxlength="50"/>
+        <small class="hint">Maximum 50 characters</small>
     </div>
     <div class="form-group">
         <label for="description">Description</label>
@@ -33,7 +74,7 @@
     </div>
     <div class="form-group">
         <label for="articleDate">Article Date</label>
-        <input type="date" id="articleDate" bind:value={articleDate} required />
+        <input type="date" id="articleDate" bind:value={articleDate} required max={maxDate}/>
     </div>
     <div class="form-group">
         <label for="articleType">Article Type</label>
@@ -44,6 +85,9 @@
             {/each}
         </select>
     </div>
+    {#if errorMessage}
+        <p class="error-message">{errorMessage}</p>
+    {/if}
     <button type="submit" class="submit-btn">Submit</button>
 </form>
 
@@ -102,5 +146,11 @@
 
     .submit-btn:hover {
         background-color: #0056b3;
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
     }
 </style>
