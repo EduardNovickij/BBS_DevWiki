@@ -1,4 +1,5 @@
 <script>
+    import { fetchArticles, fetchArticleTypes } from '../src/stores/articles'
     import ArticleList from './components/ArticleList.svelte';
     import ArticleForm from './components/ArticleForm.svelte';
 
@@ -9,6 +10,13 @@
     const handleFormSubmit = () => {
         activeTab = 'list';
     };
+
+    //Change active tab and update values from database on tab change.
+    const handleTabChange = async (tab) => {
+        activeTab = tab;
+        fetchArticles();
+        fetchArticleTypes();
+    };
 </script>
 
 <main>
@@ -16,14 +24,14 @@
     <div class="tabs">
         <button 
             class="tab-button" 
-            on:click={() => activeTab = 'list'} 
+            on:click={() => handleTabChange('list')} 
             class:selected={activeTab === 'list'}
         >
             Articles List
         </button>
         <button 
             class="tab-button" 
-            on:click={() => activeTab = 'form'} 
+            on:click={() => handleTabChange('form')} 
             class:selected={activeTab === 'form'}
         >
             Add Article

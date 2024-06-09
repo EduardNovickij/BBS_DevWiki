@@ -21,12 +21,13 @@
 
     //Reset values when switching tabs.
     const handleTabChange = (tab) => {
-        if (tab != 'form') {
+        if (tab == 'form') {
             errorMessage = '';
             title = '';
             description = '';
             articleDate = '';
             articleTypeID = '';
+            maxDate = getTodayDate();
         }
     };
 
@@ -59,6 +60,7 @@
         return `${year}-${month}-${day}`;
     };
 
+    //Set maximum date for new articles as current date.
     let maxDate = getTodayDate();
 </script>
 
