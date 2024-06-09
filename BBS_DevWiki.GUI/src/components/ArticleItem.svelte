@@ -1,13 +1,15 @@
 <script>
     import { deleteArticle } from '../stores/articles.js';
+    import { fly } from 'svelte/transition';
     export let article;
 
+    //Delete an article using it's id.
     const handleDelete = async () => {
         await deleteArticle(article.ID);
     };
 </script>
 
-<li class="article-item">
+<li class="article-item" out:fly={{ x: 20, duration: 400 }}>
     <div class="article-header">
         <h3>{article.Title}</h3>
         <button class="delete-btn" on:click={handleDelete}>Delete</button>

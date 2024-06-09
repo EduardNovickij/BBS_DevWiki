@@ -10,6 +10,7 @@
         await fetchArticleTypes();
     });
 
+    //Add article type name to each article by using ArticleTypeID stored in Article object and ID stored in ArticleType object.
     $: articlesWithTypes = $articles.map(article => {
         const type = $articleTypes.find(t => t.ID === article.ArticleTypeID);
         return { ...article, TypeName: type ? type.Name : 'Unknown' };
@@ -18,7 +19,9 @@
 
 <ul class="article-list">
     {#each articlesWithTypes as article}
-        <ArticleItem {article} />
+        <div>
+            <ArticleItem {article} />
+        </div>
     {/each}
 </ul>
 

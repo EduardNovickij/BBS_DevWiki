@@ -34,5 +34,5 @@ export const deleteArticle = async (id) => {
     await fetch(API_URL + `Article/${id}`, {
         method: 'DELETE',
     });
-    articles.update((current) => current.filter(article => article.id !== id));
+    articles.update((current) => current.filter(article => article.ID !== id));
 };
