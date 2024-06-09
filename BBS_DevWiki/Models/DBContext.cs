@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Data.Common;
+using System.Data.Entity;
 
 namespace BBS_DevWiki.Models
 {
@@ -15,5 +16,10 @@ namespace BBS_DevWiki.Models
                 .WithMany(e => e.Articles)
                 .HasForeignKey(e => e.ArticleTypeID);
         }
+
+        //Constructors to allow passing of the connection for testing.
+        public DBContext(DbConnection connection) : base(connection, true) { }
+
+        public DBContext() : base() { }
     }
 }
