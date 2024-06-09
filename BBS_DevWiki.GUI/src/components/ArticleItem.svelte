@@ -9,7 +9,7 @@
     };
 </script>
 
-<li class="article-item" out:fly={{ x: 20, duration: 400 }}>
+<li class="article-item" transition:fly={{ x: 20, duration: 400 }}>
     <div class="article-header">
         <h3>{article.Title}</h3>
         <button class="delete-btn" on:click={handleDelete}>Delete</button>
